@@ -1,6 +1,8 @@
 package com.rocketseat.certificate.useCases;
 
 import com.rocketseat.certificate.domain.student.StudentRequestDTO;
+import com.rocketseat.certificate.repositories.CertificationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -8,7 +10,12 @@ import java.util.Objects;
 @Service
 public class VerifyHasCertificationUseCase {
 
-    public boolean execute(StudentRequestDTO data){
-        return Objects.equals(data.email(), "gabriel.afg182@gmail.com") && Objects.equals(data.technology(), "JAVA");
+    @Autowired
+    private CertificationRepository certificationRepository;
+
+    public boolean execute(StudentRequestDTO dto) {
+        var result = this.certificationRepository.findByStudentEmailAndTechnology(dto.email(),
+                dto.technology());
+        return !result.isEmpty();
     }
 }

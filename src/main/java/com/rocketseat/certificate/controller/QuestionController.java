@@ -23,31 +23,8 @@ public class QuestionController {
 
     @GetMapping("/technology/{technology}")
     public List<QuestionResultDTO> findByTechnology(@PathVariable String technology){
-        System.out.println("TECH== "+ technology);
-
         var result = this.questionRepository.findByTechnology(technology);
 
-        return result.stream().map(QuestionController::mapQuestionToDTO)
-                .collect(Collectors.toList());
-    }
-
-    static QuestionResultDTO mapQuestionToDTO(Question question) {
-        var questionResultDTO = QuestionResultDTO.builder()
-                .id(question.getId())
-                .technology(question.getTechnology())
-                .description(question.getDescription()).build();
-
-        List<AlternativeResultDTO> alternativesResultDTOs = question.getAlternatives()
-                .stream().map(QuestionController::mapAlternativeDTO)
-                .collect(Collectors.toList());
-
-        questionResultDTO.setAlternatives(alternativesResultDTOs);
-        return questionResultDTO;
-    }
-
-    static AlternativeResultDTO mapAlternativeDTO(Alternatives alternativesResultDTO) {
-        return AlternativeResultDTO.builder()
-                .id(alternativesResultDTO.getId())
-                .description(alternativesResultDTO.getDescription()).build();
+        return result.stream().map(QuestionResultDTO::new).toList();
     }
 }

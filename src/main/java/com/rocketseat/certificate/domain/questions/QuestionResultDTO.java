@@ -9,15 +9,21 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class QuestionResultDTO {
 
-    private UUID id;
-    private String technology;
-    private String description;
+public record QuestionResultDTO(
+         UUID id,
+         String technology,
+         String description,
 
-    private List<AlternativeResultDTO> alternatives;
+         List<AlternativeResultDTO> alternatives
+) {
+    public QuestionResultDTO(Question question){
+        this(
+                question.getId(),
+                question.getTechnology(),
+                question.getDescription(),
+                question.getAlternatives().stream().map(AlternativeResultDTO::new).toList()
+        );
+    }
+
 }

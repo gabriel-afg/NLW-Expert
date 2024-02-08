@@ -63,7 +63,7 @@ POST /students/verifyCertification- Check whether the user has a certification i
 ]
 ```
 ```markdown
-POST /students/certification/answer - Register a new user into the App
+POST /students/certification/answer - Endpoint of user responses
 ```
 ```json
 [

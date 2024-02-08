@@ -10,4 +10,7 @@ import java.util.UUID;
 public interface CertificationRepository extends JpaRepository<CertificationStudent, UUID> {
     @Query("SELECT c FROM certifications c INNER JOIN c.student std WHERE std.email = :email AND c.technology = :technology")
     List<CertificationStudent> findByStudentEmailAndTechnology(String email, String technology);
+
+    @Query("SELECT c from certifications c ORDER BY c.grate DESC LIMIT 10")
+    List<CertificationStudent> findTop10ByOrderByGradeDesc();
 }

@@ -1,12 +1,10 @@
 package com.rocketseat.certificate.domain.answerCertification;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.rocketseat.certificate.domain.certification.CertificationStudent;
 import com.rocketseat.certificate.domain.student.Student;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
@@ -19,6 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(of = "id")
+@Builder
 public class AnswerCertification {
 
     @Id
@@ -30,6 +29,7 @@ public class AnswerCertification {
 
     @ManyToOne
     @JoinColumn(name = "certification_id", insertable = false, updatable = false)
+    @JsonBackReference
     private CertificationStudent certificationStudent;
 
     @Column(name = "student_id")

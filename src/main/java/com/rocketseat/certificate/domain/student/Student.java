@@ -1,11 +1,9 @@
 package com.rocketseat.certificate.domain.student;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.rocketseat.certificate.domain.certification.CertificationStudent;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -18,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Student {
 
     @Id
@@ -26,6 +25,7 @@ public class Student {
     @Column(unique = true, nullable = false)
     private String email;
     @OneToMany(mappedBy = "student")
+    @JsonBackReference
     private List<CertificationStudent> certificationStudents;
     @CreationTimestamp
     private LocalDateTime createdAt;
